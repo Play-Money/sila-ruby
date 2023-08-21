@@ -30,9 +30,10 @@ require 'sila-ruby'
 
 ```
 SilaRuby.setup do |config|
-  config.handle = 'SILA_HANDLE'
-  config.address = 'SILA_ADDRESS'
-  config.private_key = "SILA_PRIVATE_KEY"
+  config.env = ENV['SILA_ENV']
+  config.handle = ENV['SILA_APP_HANDLE']
+  config.address = ENV['SILA_ADDRESS']
+  config.private_key = ENV['SILA_PRIVATE_KEY']
 end
 ```
 

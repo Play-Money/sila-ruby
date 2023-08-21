@@ -7,13 +7,10 @@ require 'sila-ruby'
 # You can add fixtures and/or initialization code here to make experimenting
 # with your gem easier. You can also use a different console, if you like.
 
-# (If you use this, don't forget to add pry to your Gemfile!)
-# require "pry"
-# Pry.start
-
 SilaRuby.setup do |config|
+  config.env = ENV['SILA_ENV']
+  config.handle = ENV['SILA_APP_HANDLE']
   config.address = ENV['SILA_ADDRESS']
-  config.handle = ENV['SILA_HANDLE']
   config.private_key = ENV['SILA_PRIVATE_KEY']
 end
 

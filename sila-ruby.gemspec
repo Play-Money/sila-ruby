@@ -1,5 +1,5 @@
 
-lib = File.expand_path('lib', __dir__)
+lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'sila-ruby/version'
 
@@ -7,12 +7,12 @@ Gem::Specification.new do |spec|
   spec.name = 'sila-ruby'
   spec.version = SilaRuby::VERSION
   spec.licenses = ['MIT']
-  spec.authors = ['Vertbase']
-  spec.email = ['dev@vertbase.com']
+  spec.authors = ['Sequoir', 'PlayMoney']
+  spec.email = ['engineering@sequoir.com', 'ilya.nechiporenko@yahoo.com']
 
   spec.summary = 'Ruby implementation of the Sila API'
   spec.description = 'Ruby implementation of the Sila API'
-  spec.homepage = 'https://github.com/vertbase/sila-ruby'
+  spec.homepage = 'https://github.com/Play-Money/sila-ruby'
 
   spec.files = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
@@ -25,7 +25,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'json', '~> 2.2'
   spec.add_dependency 'httparty', '~> 0.17'
   spec.add_dependency 'dotenv', '~> 2.7'
-  spec.add_dependency 'eth'
+  spec.add_dependency 'eth', '~> 0.5.10'
 
   spec.add_development_dependency 'bundler', '~> 1.16'
   spec.add_development_dependency 'rake', '~> 10.0'

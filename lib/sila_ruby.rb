@@ -1,5 +1,4 @@
 require 'dotenv/load'
-require 'digest/sha3'
 require 'securerandom'
 require 'openssl'
 require 'addressable/uri'
@@ -10,9 +9,11 @@ require 'eth'
 
 require 'sila-ruby/version'
 require 'sila-ruby/api_helpers'
+require 'sila-ruby/entities'
 require 'sila-ruby/accounts'
-require 'sila-ruby/banks'
 require 'sila-ruby/transactions'
+require 'sila-ruby/wallets'
+require 'sila-ruby/utilities'
 
 # ================================================
 # SILA-RUBY ======================================
@@ -38,9 +39,10 @@ module SilaRuby
   # CONFIGURATION --------------------------------
   # ----------------------------------------------
   class Configuration
-    attr_accessor :address, :handle, :private_key
+    attr_accessor :env, :address, :handle, :private_key
 
     def initialize
+      @env = ''
       @address = ''
       @handle = ''
       @pkey = ''

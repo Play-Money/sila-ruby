@@ -14,78 +14,83 @@ module SilaRuby
     include ApiHelpers
 
     # --------------------------------------------
-    # CHECK-HANDLE -------------------------------
+    # LINK-ACCOUNT -------------------------------
     # --------------------------------------------
-    # Check if a specific handle is taken
-    def self.check_handle(handle)
+    # Uses a provided Plaid public token to link a bank account to a verified entity.
+    def self.link_account(handle, params={}, user_key)
       header = { user_handle: handle }
-      message = 'header_msg'
-      post_signed('check_handle', header, message, nil, nil)
-    end
-
-    # --------------------------------------------
-    # REGISTER -----------------------------------
-    # --------------------------------------------
-    # Attaches KYC and blockchain address to user handle
-    def self.register(handle, params={})
-      header = { user_handle: handle }
-      message = 'entity_msg'
+      message = 'link_account_msg'
 
       # Example of params passed
       #
       # params = {
-      #   address: {
-      #     address_alias: "home",
-      #     street_address_1: "1265 Lombardi Ave",
-      #     city: "Green Bay",
-      #     state: "WI",
-      #     country: "US",
-      #     postal_code: "54304"
-      #   },
-      #   identity: {
-      #     identity_alias: "SSN",
-      #     identity_value: "123452222"
-      #   },
-      #   contact: {
-      #     contact_alias: "",
-      #     phone: "503-123-4567",
-      #     email: "example@silamoney.com"
-      #   },
-      #   crypto_entry: {
-      #     crypto_alias: "Address 1",
-      #     crypto_address: "0x1234567890abcdef1234567890abcdef12345678",
-      #     crypto_code: "ETH"
-      #   },
-      #   entity: {
-      #     birthdate: "1900-01-31",
-      #     entity_name: "Example User",
-      #     first_name: "Example",
-      #     last_name: "User",
-      #     relationship: "user"
-      #   }
+      #   public_token: "public-xxx-xxx",
+      #   account_name: "Custom Account Name",
+      #   selected_account_id: "optional_selected_account_id"
       # }
 
-      post_signed('register', header, message, params, nil)
+      sila_post_signed('link_account', header, message, params, user_key, nil)
     end
 
     # --------------------------------------------
-    # REQUEST-KYC --------------------------------
+    # GET-ACCOUNTS -------------------------------
     # --------------------------------------------
-    # Start KYC verification process on a registered user handle
-    def self.request_kyc(handle, user_key)
+    # Gets basic bank account names linked to user handle.
+    def self.get_accounts(handle, user_key)
       header = { user_handle: handle }
-      message = 'header_msg'
-      post_signed('request_kyc', header, message, nil, user_key)
+      message = 'get_accounts_msg'
+      sila_post_signed('get_accounts', header, message, nil, user_key, nil)
     end
 
     # --------------------------------------------
-    # CHECK-KYC ----------------------------------
+    # GET-ACCOUNT-BALANCE ------------------------
     # --------------------------------------------
-    # Whether entity attached to user handle is verified, not valid, or pending
-    def self.check_kyc(handle, user_key)
+    # Requests bank account balance data from an end-users linked bank account.
+    def self.get_account_balance(handle, params={}, user_key)
       header = { user_handle: handle }
       message = 'header_msg'
-      post_signed('check_kyc', header, message, nil, user_key)
+
+      # Example of params passed
+      #
+      # params = {
+      #   account_name: "Custom Account Name",
+      # }
+
+      sila_post_signed('get_account_balance', header, message, params, user_key, nil)
+    end
+
+    # --------------------------------------------
+    # PLAID-SAMEDAY-AUTH -------------------------
+    # --------------------------------------------
+    # Handle a request for a Plaid Link public_token in order to complete Plaid's Same Day Microdeposit Authentication.
+    def self.plaid_sameday_auth(handle, params={}, user_key)
+      header = { user_handle: handle }
+      message = 'header_msg'
+
+      # Example of params passed
+      #
+      # params = {
+      #   account_name: "Custom Account Name",
+      # }
+
+      sila_post_signed('plaid_sameday_auth', header, message, params, user_key, nil)
+    end
+
+    # --------------------------------------------
+    # UPDATE-LINK-TOKEN --------------------------
+    # --------------------------------------------
+    # Get a link token for an existing linked bank account.
+    def self.update_link_token(handle, params={}, user_key)
+      header = { user_handle: handle }
+      message = 'header_msg'
+
+      # Example of params passed
+      #
+      # params = {
+      #   account_name: "Custom Account Name",
+      # }
+
+      sila_post_signed('plaid_update_link_token', header, message, params, user_key, nil)
     end
 
   end
